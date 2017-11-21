@@ -1,0 +1,13 @@
+# Mapping
+config.tx_extbase {
+	persistence {
+		classes {
+			T3o\Userprofile\Domain\Model\UserProfile {
+				mapping {
+					tableName = fe_users
+					recordType =
+				}
+			}
+		}
+	}
+}
