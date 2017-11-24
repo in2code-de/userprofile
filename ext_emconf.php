@@ -27,6 +27,7 @@ $EM_CONF[$_EXTKEY] = [
         'depends' => [
             'typo3' => '8.7.0-8.99.99',
             'php' => '7.0.0-7.99.99',
+            'femanager' => '3.1.0-'
         ],
         'conflicts' => [],
         'suggests' => [],

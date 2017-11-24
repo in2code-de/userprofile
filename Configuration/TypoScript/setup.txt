@@ -1,0 +1,38 @@
+plugin.tx_userprofile {
+   view {
+      templateRootPath = {$plugin.tx_userprofile.view.templateRootPath}
+      partialRootPath = {$plugin.tx_userprofile.view.partialRootPath}
+      layoutRootPath = {$plugin.tx_userprofile.view.layoutRootPath}
+   }
+
+   persistence {
+      storagePid = {$plugin.tx_userprofile.persistence.storagePid}
+   }
+
+   features {
+      # uncomment the following line to enable the new Property Mapper.
+      # rewrittenPropertyMapper = 1
+   }
+
+   settings {
+      pricacy {
+         _default {
+            public = 0
+            authenticated = 0
+            groups = 0
+         }
+         #column_name = 1 activates the setting for the user
+
+         #column_name  {
+         #  public = 0  => sets the default value for element
+         #  authenticated = 0
+         #  groups = 0
+         # }
+         about_me = 1
+         email = 1
+         name = 1
+         image = 1
+         slack_id = 1
+      }
+   }
+}

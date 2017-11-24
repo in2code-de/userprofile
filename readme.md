@@ -4,7 +4,7 @@ TYPO3 Frontend User Profile
 
 ## Quick installation
 
-Please look at the manual for a big documentation at 
+Please look at the manual for a detailed documentation at 
 
 
 Quick guide:

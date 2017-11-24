@@ -1,0 +1,21 @@
+
+<section class="container">
+	<h1>{userProfile.name}</h1>
+	<ul>
+		<li>Name:   {userProfile.name}</li>
+		<li>Email:  {userProfile.email}</li>
+		<li>About me:  {userProfile.aboutMe}</li>
+		<f:if condition="{showEditButton}" >
+			<li>my privacy settings: {userProfile.privacySettings}</li>
+
+			<f:link.action action="edit" arguments="{userProfile:userProfile}">Edit</f:link.action>
+
+			<f:form action="update" name="userProfile" object="{userProfile}">
+				<f:form.checkbox value="{userProfile.publicProfile}" property="publicProfile"></f:form.checkbox>
+				<label for="publicProfile">show my profile page</label></br>
+				<f:form.submit class="btn btn-primary" value="update your profile" />
+			</f:form>
+		</f:if>
+
+	</ul>
+</section>
