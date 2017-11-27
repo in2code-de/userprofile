@@ -48,6 +48,8 @@ class UserProfileController extends ActionController
         }
         // display a profile of a user
         $this->view->assign('userProfile',$userProfile);
+        
+        $this->view->assign('privacySettings',$userProfile->getCompiledPrivacySettings($this->settings['privacy']));
         // render an edit button, if the current user is logged in
     }
 
