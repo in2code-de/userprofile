@@ -13,6 +13,7 @@
 			<f:form action="update" name="userProfile" object="{userProfile}">
 				<f:form.checkbox value="{userProfile.publicProfile}" property="publicProfile"></f:form.checkbox>
 				<label for="publicProfile">show my profile page</label></br>
+				<f:form.textfield value="{userProfile.privacySettings}" property="privacySettings"></f:form.textfield>
 				<f:form.submit class="btn btn-primary" value="update your profile" />
 			</f:form>
 		</f:if>
