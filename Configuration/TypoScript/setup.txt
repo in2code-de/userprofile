@@ -15,7 +15,7 @@ plugin.tx_userprofile {
    }
 
    settings {
-      pricacy {
+      privacy {
          _default {
             public = 0
             authenticated = 0
