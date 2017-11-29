@@ -33,11 +33,11 @@ class UserProfile extends User
     public $publicProfile = false;
 
     /**
-     * @return string
+     * @return array
      */
     public function getPrivacySettings()
     {
-        return json_decode($this->privacySettings);
+        return json_decode($this->privacySettings, true);
     }
 
     /**
@@ -73,6 +73,39 @@ class UserProfile extends User
         return $compiledPrivacySettings;
     }
 
+
+    /**
+     * @param array $newPrivacySettings
+     * @param array $defaultPrivacySettings
+     * @return boolean
+     */
+    public function compilePrivacySettings($newPrivacySettings = array(), $defaultPrivacySettings = array())
+    {
+        // example data
+        // public => '0' (1 chars)
+        // authenticated => '0' (1 chars)
+        // groups => '0' (1 chars)
+        $defaultSettingsTemplate = $defaultPrivacySettings['_default'];
+
+        foreach ($defaultPrivacySettings as $defaultPrivacySetting => $defaultPrivacySettingValue) {
+
+            if ($defaultPrivacySetting <> '_default' AND $defaultPrivacySettingValue == 1) {
+                foreach ($defaultSettingsTemplate as $defaultSettingTemplateKey => $defaultSettingTemplateValue) {
+
+                    // set the default value of the TS setting
+                    $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = 0;
+
+                    // check if there is an existing value
+                    if ($newPrivacySettings[$defaultPrivacySetting . '.' . $defaultSettingTemplateKey]) {
+                        $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = 1;
+                    }
+                }
+            }
+        }
+        $this->setPrivacySettings($compiledPrivacySettings);
+
+        return true;
+    }
     /**
      * @param array $privacySettings
      */

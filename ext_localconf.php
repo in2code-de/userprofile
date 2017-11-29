@@ -7,11 +7,11 @@ if (!defined('TYPO3_MODE')) {
     'T3o.' . $_EXTKEY,
     'Pi1',
     [
-        'UserProfile' => 'show, edit, update',
+        'UserProfile' => 'show, edit, update, privacyUpdate, privacyEdit, changeProfileVisibility',
         'UserProfileList' => 'list',
     ],
     [
-        'UserProfile' => 'edit, update',
+        'UserProfile' => 'edit, update, privacyUpdate, privacyEdit, changeProfileVisibility',
         'UserProfileList' => '',
     ]
 );

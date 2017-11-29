@@ -1,22 +1,39 @@
-
+<f:debug>{userProfile}</f:debug>
 <section class="container">
 	<h1>{userProfile.name}</h1>
 	<ul>
 		<li>Name:   {userProfile.name}</li>
 		<li>Email:  {userProfile.email}</li>
 		<li>About me:  {userProfile.aboutMe}</li>
-		<f:if condition="{showEditButton}" >
-			<li>my privacy settings: {userProfile.privacySettings}</li>
-
-			<f:link.action action="edit" arguments="{userProfile:userProfile}">Edit</f:link.action>
-
-			<f:form action="update" name="userProfile" object="{userProfile}">
-				<f:form.checkbox value="{userProfile.publicProfile}" property="publicProfile"></f:form.checkbox>
-				<label for="publicProfile">show my profile page</label></br>
-				<f:form.textfield value="{userProfile.privacySettings}" property="privacySettings"></f:form.textfield>
-				<f:form.submit class="btn btn-primary" value="update your profile" />
-			</f:form>
+		<f:debug>{<userProfile></userProfile>}</f:debug>
+		<f:if condition="{showEditButton}">
+			<f:link.action action="edit" arguments="{userProfile:userProfile}" class="btn btn-primary" >Edit your profile</f:link.action>
+			<f:if condition="{userProfile.publicProfile}">
+				<f:then>
+					<f:link.action class="btn alert-danger" action="changeProfileVisibility" arguments="{userProfile:userProfile}">Hide profile</f:link.action>
+				</f:then>
+				<f:else>
+					<f:link.action class="btn alert-success" action="changeProfileVisibility" arguments="{userProfile:userProfile}">Make profile public</f:link.action>
+				</f:else>
+			</f:if>
+				<label>show my profile page</label></br>
+				<table>
+					<thead>
+						<td>show your data to </td>
+						<td>everyone</td>
+						<td>community</td>
+						<td>teams</td>
+					</thead>
+				<f:for each="{privacySettings}" as="privacySetting" key="privacySettingValue">
+					<tr>
+						<td>{privacySettingValue}</td>
+						<td>{privacySetting.public}</td>
+						<td>{privacySetting.authenticated}</td>
+						<td>{privacySetting.groups}</td>
+					</tr>
+				</f:for>
+				</table>
+				<f:link.action class="btn btn-secondary" action="privacyEdit" arguments="{userProfile:userProfile}">Edit privacy settings</f:link.action>
 		</f:if>
-
 	</ul>
 </section>
