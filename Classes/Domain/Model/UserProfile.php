@@ -167,6 +167,8 @@ class UserProfile extends User
                 if ($groups) {
                     // check if usergroups match
                     $useroroups = $this->getUsergroup();
+
+                    // @todo exclude groups from comparision, if they are added for all users
                     foreach ($useroroups as $userqroup) {
                         $userGroupArray[] =  $userqroup->uid;
                     }
