@@ -1,12 +1,11 @@
 
 <section class="container">
-	<h1>my user profile</h1>
+	<h1>Our community</h1>
 <table>
 	<f:for each="{frontendUsers}" as="frontendUser">
 		<f:if condition="{frontendUser.publicProfile}">
 		<tr>
 			<td><f:link.action controller="UserProfile" action="show" arguments="{userProfile:frontendUser}">{frontendUser.username}</f:link.action></td>
-			<td>{frontendUser.uid}</td>
 		</tr>
 		</f:if>
 	</f:for>
