@@ -1,9 +1,16 @@
-<section class="container">
+{namespace userprofile=T3o\Userprofile\ViewHelpers}
+#<section class="container">
 	<h1>{userProfile.name}</h1>
 	<ul>
-		<li>Name:   {userProfile.name}</li>
+		<f:if condition="{userprofile:isPropertyVisible(propertyName:'name', userProfile:userProfile)}">
+			<li>Name: {userProfile.name}</li>
+		</f:if>
+		<f:if condition="{userprofile:isPropertyVisible(propertyName:'email', userProfile:userProfile)}">
 		<li>Email:  {userProfile.email}</li>
+		</f:if>
+		<f:if condition="{userprofile:isPropertyVisible(propertyName:'about_me', userProfile:userProfile)}">
 		<li>About me:  {userProfile.aboutMe}</li>
+		</f:if>
 		<f:if condition="{showEditButton}">
 			<f:render partial="ShowEdit" arguments="{_all}" />
 		</f:if>

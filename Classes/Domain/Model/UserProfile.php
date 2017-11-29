@@ -106,6 +106,7 @@ class UserProfile extends User
 
         return true;
     }
+
     /**
      * @param array $privacySettings
      */
@@ -146,5 +147,58 @@ class UserProfile extends User
         $this->publicProfile = $publicProfile;
     }
 
+    /**
+     * @param string $propertyName
+     */
+    public function showProperty($propertyName = '')
+    {
+        // get privacy settings for this property
+        $privacySettingsArray = $this->getPrivacySettings();
 
+        if (is_array($privacySettingsArray[$propertyName])) {
+            $public = (int)$privacySettingsArray[$propertyName]['public'];
+            $authenticated = (int)$privacySettingsArray[$propertyName]['authenticated'];
+            $groups = (int)$privacySettingsArray[$propertyName]['groups'];
+
+            // get context
+            // User is logged in?
+            if ($GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
+                // groups context
+                if ($groups) {
+                    // check if usergroups match
+                    $useroroups = $this->getUsergroup();
+                    foreach ($useroroups as $userqroup) {
+                        $userGroupArray[] =  $userqroup->uid;
+                    }
+                    $feUserGroups  = explode(',',$GLOBALS['TSFE']->fe_user->user['usergroup']);
+
+                    foreach ($feUserGroups as $feUserGroup) {
+                        if (in_array($feUserGroup,$userGroupArray)) {
+                            return true;
+                        }
+                    }
+                }
+
+                // authenticated context
+                if ($authenticated) {
+                    return true;
+                }
+
+            } else {
+                // we are in public context
+                if ($public) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            #if ($user == true) {
+
+           # } else {
+
+            #}
+        }
+        return false;
+    }
 }
