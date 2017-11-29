@@ -64,7 +64,7 @@ class UserProfile extends User
 
                     // check if there is an existing value
                     if ($currentPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey]) {
-                        $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = intval($currentPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey]);
+                        $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = (int)$currentPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey];
                     }
                 }
             }
