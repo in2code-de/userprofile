@@ -20,8 +20,9 @@ class IsPropertyVisibleViewHelper extends AbstractViewHelper
      */
     public function render(string $propertyName, UserProfile $userProfile)
     {
+        // return always all fields for the current user
         if ($GLOBALS['TSFE']->fe_user->user['uid']==$userProfile->getUid()) {
-            #return true;
+            return true;
         }
         return $userProfile->showProperty($propertyName);
     }
