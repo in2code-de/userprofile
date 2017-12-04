@@ -30,9 +30,7 @@ class UserProfileController extends ActionController
     public function injectUserProfileRepository(UserProfileRepository $userProfileRepository)
     {
         $this->userProfileRepository = $userProfileRepository;
-
     }
-
 
     /**
      * @param PersistenceManager $persistenceManager
@@ -40,9 +38,7 @@ class UserProfileController extends ActionController
     public function injectPersistenceManager(PersistenceManager $persistenceManager)
     {
         $this->persistenceManager = $persistenceManager;
-
     }
-
 
     /**
      * @param \T3o\Userprofile\Domain\Model\Userprofile $userProfile
@@ -145,6 +141,11 @@ class UserProfileController extends ActionController
         // store changes in database
         $this->userProfileRepository->update($userProfile);
 
-        // clear cache entry for this entry
+        $this->persistenceManager->persistAll();
+
+        $this->addFlashMessage('Your profile was updated.');
+        $this->redirect('show');
+
+        // @todo clear cache entry for this entry
     }
 }

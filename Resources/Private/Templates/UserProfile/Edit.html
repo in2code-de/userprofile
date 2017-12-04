@@ -1,15 +1,9 @@
-
 <section class="container">
 	<h1>Edit {userProfile.name}</h1>
-	<ul>
-		<li>Name:   {userProfile.name}</li>
-		<li>Email:  {userProfile.email}</li>
-		<li>About me:  {userProfile.aboutMe}</li>
-		<f:if condition="{showEditButton}" >
-			<f:link.action action="edit" arguments="{userProfile:userProfile}" class="btn btn-primary" >Edit your profile</f:link.action>
-
-
-		</f:if>
-
-	</ul>
+	<f:flashMessages/>
+	<f:form action="update" name="userProfile" object="{userProfile}">
+		<label for="userProfile.aboutMe">About me:</label><br />
+		<f:form.textarea id="userProfile.aboutMe" property="aboutMe" value="{userProfile.aboutMe}" class="xxlarge form-control"/>
+		<input type="submit" value="back" class="btn btn-secondary"/> <input type="submit" value="update" class="btn btn-success"/>
+	</f:form>
 </section>
