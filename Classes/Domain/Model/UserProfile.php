@@ -155,10 +155,9 @@ class UserProfile extends User
                 }
             }
 
+            // TODO: Implement this functionality or remove this comment!
             //if ($user == true) {
-
-           // } else {
-
+            //} else {
             //}
         }
         return false;

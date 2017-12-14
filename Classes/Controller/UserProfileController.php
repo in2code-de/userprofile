@@ -52,7 +52,9 @@ class UserProfileController extends ActionController
         $this->view->assign('userProfile', $userProfile);
 
         $this->view->assign('privacySettings', $userProfile->getCompiledPrivacySettings($this->settings['privacy']));
+
         // render an edit button, if the current user is logged in
+        // TODO: Implement this functionality or remove this comment!
     }
 
     public function changeProfileVisibilityAction(UserProfile $userProfile)
@@ -97,5 +99,6 @@ class UserProfileController extends ActionController
         $this->userProfileRepository->update($userProfile);
 
         // clear cache entry for this entry
+        // TODO: Implement this functionality or remove this comment!
     }
 }
