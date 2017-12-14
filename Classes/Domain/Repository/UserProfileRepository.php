@@ -16,7 +16,7 @@ class UserProfileRepository extends Repository
      * @param int $uid fe_users UID
      * @return UserProfile
      */
-    public function findByUid($uid)
+    public function findByUid($uid): UserProfile
     {
         $query = $this->createQuery();
         $and = [$query->equals('uid', $uid)];
