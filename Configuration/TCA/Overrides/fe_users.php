@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /*
  * Table configuration fe_users
@@ -9,21 +10,21 @@ $feUsersColumns = [
         'label' => 'Privacy settings',
         'config' => [
             'type' => 'text',
-        ]
+        ],
     ],
     'about_me' => [
         'exclude' => 0,
         'label' => 'about me',
         'config' => [
             'type' => 'text',
-        ]
+        ],
     ],
     'public_profile' => [
         'exclude' => 0,
         'label' => 'show user profile',
         'config' => [
             'type' => 'check',
-        ]
+        ],
     ],
 ];
 
