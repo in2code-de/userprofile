@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace In2code\Userprofile\Controller;
 
-use In2code\Userprofile\Domain\Model\UserProfile;
 use In2code\Userprofile\Domain\Repository\UserProfileRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -33,5 +32,4 @@ class UserProfileListController extends ActionController
         $allUsers = $this->userProfileRepository->findAll();
         $this->view->assign('frontendUsers', $allUsers);
     }
-
 }

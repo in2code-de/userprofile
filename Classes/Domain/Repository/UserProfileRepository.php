@@ -87,5 +87,4 @@ class UserProfileRepository extends Repository
         $users = $query->execute();
         return $users;
     }
-
 }

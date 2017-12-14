@@ -28,4 +28,3 @@ if (!defined('TYPO3_MODE')) {
         'UserProfile' => 'show, edit, update',
     ]
 );
-

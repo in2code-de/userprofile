@@ -3,7 +3,6 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-
 /**
  * FE Plugin
  */
@@ -13,7 +12,6 @@ if (!defined('TYPO3_MODE')) {
 /**
  * Static TypoScript
  */
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript',
     'Main settings for userprofile');
 
