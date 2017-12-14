@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace T3o\Userprofile\Controller;
+namespace In2code\Userprofile\Controller;
 
-use T3o\Userprofile\Domain\Model\UserProfile;
-use T3o\Userprofile\Domain\Repository\UserProfileRepository;
+use In2code\Userprofile\Domain\Model\UserProfile;
+use In2code\Userprofile\Domain\Repository\UserProfileRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -45,7 +45,7 @@ class UserProfileController extends ActionController
 
 
     /**
-     * @param \T3o\Userprofile\Domain\Model\Userprofile $userProfile
+     * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
      *
      * @return void
      *
@@ -73,7 +73,7 @@ class UserProfileController extends ActionController
     }
 
     /**
-     * @param \T3o\Userprofile\Domain\Model\Userprofile $userProfile
+     * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
      *
      * @return void
      *
@@ -92,7 +92,7 @@ class UserProfileController extends ActionController
     }
 
     /**
-     * @param \T3o\Userprofile\Domain\Model\Userprofile $userProfile
+     * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
      *
      * @return void
      *
@@ -104,7 +104,7 @@ class UserProfileController extends ActionController
     }
 
     /**
-     * @param \T3o\Userprofile\Domain\Model\UserProfile $userProfile
+     * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
      *
      * @return void
      *
@@ -123,7 +123,7 @@ class UserProfileController extends ActionController
 
     /**
      *
-     * @param \T3o\Userprofile\Domain\Model\UserProfile $userProfile
+     * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
      *
      * @return void
      *
@@ -134,7 +134,7 @@ class UserProfileController extends ActionController
     }
 
     /**
-     * @param \T3o\Userprofile\Domain\Model\UserProfile $userProfile
+     * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
      *
      * @return void
      *

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace T3o\Userprofile\ViewHelpers;
+namespace In2code\Userprofile\ViewHelpers;
 
-use T3o\Userprofile\Domain\Model\UserProfile;
+use In2code\Userprofile\Domain\Model\UserProfile;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
