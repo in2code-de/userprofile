@@ -9,42 +9,29 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
-/**
- * Class UserController
- */
 class UserProfileController extends ActionController
 {
     /**
      * @var UserProfileRepository
-     * */
+     */
     public $userProfileRepository;
 
     /**
      * @var persistenceManager
-     * */
+     */
     public $persistenceManager;
 
-    /**
-     * @param UserProfileRepository $userProfileRepository
-     */
     public function injectUserProfileRepository(UserProfileRepository $userProfileRepository)
     {
         $this->userProfileRepository = $userProfileRepository;
     }
 
-    /**
-     * @param PersistenceManager $persistenceManager
-     */
     public function injectPersistenceManager(PersistenceManager $persistenceManager)
     {
         $this->persistenceManager = $persistenceManager;
     }
 
     /**
-     * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
-     *
-     * @return void
-     *
      * @ignoevalidation $userProfile
      */
     public function showAction(UserProfile $userProfile = null)
@@ -65,14 +52,11 @@ class UserProfileController extends ActionController
         $this->view->assign('userProfile', $userProfile);
 
         $this->view->assign('privacySettings', $userProfile->getCompiledPrivacySettings($this->settings['privacy']));
+
         // render an edit button, if the current user is logged in
+        // TODO: Implement this functionality or remove this comment!
     }
 
-    /**
-     * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
-     *
-     * @return void
-     */
     public function changeProfileVisibilityAction(UserProfile $userProfile)
     {
         if ($userProfile->isPublicProfile()) {
@@ -86,22 +70,12 @@ class UserProfileController extends ActionController
         $this->userProfileRepository->update($userProfile);
     }
 
-    /**
-     * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
-     *
-     * @return void
-     */
     public function privacyEditAction(UserProfile $userProfile)
     {
         $this->view->assign('userProfile', $userProfile);
         $this->view->assign('privacySettings', $userProfile->getCompiledPrivacySettings($this->settings['privacy']));
     }
 
-    /**
-     * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
-     *
-     * @return void
-     */
     public function privacyUpdateAction(UserProfile $userProfile)
     {
         // process privacy settings
@@ -114,28 +88,17 @@ class UserProfileController extends ActionController
         $this->redirect('show');
     }
 
-    /**
-     * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
-     *
-     * @return void
-     */
     public function editAction(UserProfile $userProfile)
     {
         $this->view->assign('userProfile', $userProfile);
     }
 
-    /**
-     * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
-     *
-     * @return void
-     *
-     * @ignoevalidation $userProfile
-     */
     public function updateAction(UserProfile $userProfile)
     {
         // store changes in database
         $this->userProfileRepository->update($userProfile);
 
         // clear cache entry for this entry
+        // TODO: Implement this functionality or remove this comment!
     }
 }

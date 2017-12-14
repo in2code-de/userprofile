@@ -8,19 +8,15 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-/**
- * Class UserProfileRepository
- */
 class UserProfileRepository extends Repository
 {
-
     /**
      * Overload Find by UID to also get hidden records
      *
      * @param int $uid fe_users UID
      * @return UserProfile
      */
-    public function findByUid($uid)
+    public function findByUid($uid): UserProfile
     {
         $query = $this->createQuery();
         $and = [$query->equals('uid', $uid)];
@@ -33,12 +29,9 @@ class UserProfileRepository extends Repository
     /**
      * Find users by commaseparated usergroup list
      *
-     * @param string $userGroupList commaseparated list of usergroup uids
-     * @param array $settings Flexform and TypoScript Settings
-     * @param array $filter Filter Array
      * @return QueryResultInterface|array
      */
-    public function findByUsergroups($userGroupList, $settings, $filter)
+    public function findByUsergroups(string $userGroupList, array $settings, array $filter)
     {
         $query = $this->createQuery();
 

@@ -1,13 +1,9 @@
 <?php
-
-/***************************************************************
- * Extension Manager/Repository config file for ext: "femanager"
- ***************************************************************/
+declare(strict_types=1);
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'User profile',
-    'description' => 'Creates a profile page for TYPO3 frontend user based on
-        Extbase and Fluid and on TYPO3 8.7',
+    'description' => 'Creates a profile page for TYPO3 frontend user based on Extbase and Fluid and on TYPO3 8.7',
     'category' => 'plugin',
     'author' => 'Stefan Busemann',
     'author_email' => 'stefan@in2code.de',
@@ -27,7 +23,7 @@ $EM_CONF[$_EXTKEY] = [
         'depends' => [
             'typo3' => '8.7.0-8.99.99',
             'php' => '7.0.0-7.99.99',
-            'femanager' => '3.1.0-'
+            'femanager' => '3.1.0-',
         ],
         'conflicts' => [],
         'suggests' => [],
