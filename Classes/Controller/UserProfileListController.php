@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace T3o\Userprofile\Controller;
+namespace In2code\Userprofile\Controller;
 
-use T3o\Userprofile\Domain\Model\UserProfile;
-use T3o\Userprofile\Domain\Repository\UserProfileRepository;
+use In2code\Userprofile\Domain\Model\UserProfile;
+use In2code\Userprofile\Domain\Repository\UserProfileRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**

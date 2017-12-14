@@ -14,7 +14,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"T3o\\Userprofile\\": "Classes"
+			"In2code\\Userprofile\\": "Classes"
 		}
 	}
 }

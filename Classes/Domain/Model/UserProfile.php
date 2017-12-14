@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace T3o\Userprofile\Domain\Model;
+namespace In2code\Userprofile\Domain\Model;
 
 use In2code\Femanager\Domain\Model\User;
 

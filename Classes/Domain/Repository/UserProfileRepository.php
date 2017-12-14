@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace T3o\Userprofile\Domain\Repository;
+namespace In2code\Userprofile\Domain\Repository;
 
-use T3o\userprofile\Domain\Model\UserProfile;
+use In2code\Userprofile\Domain\Model\UserProfile;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;

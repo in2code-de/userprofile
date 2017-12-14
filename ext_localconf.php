@@ -4,7 +4,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'T3o.' . $_EXTKEY,
+    'In2code.' . $_EXTKEY,
     'Pi1',
     [
         'UserProfile' => 'show, edit, update, privacyUpdate, privacyEdit, changeProfileVisibility',
@@ -17,7 +17,7 @@ if (!defined('TYPO3_MODE')) {
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'T3o.' . $_EXTKEY,
+    'In2code.' . $_EXTKEY,
     'Pi2',
     [
         'UserProfileList' => 'list',
