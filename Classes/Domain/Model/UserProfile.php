@@ -28,7 +28,7 @@ class UserProfile extends User
     /**
      * $publicProfile
      *
-     * @var boolean
+     * @var bool
      */
     public $publicProfile = false;
 
@@ -44,7 +44,7 @@ class UserProfile extends User
      * @param array $defaultPrivacySettings
      * @return array
      */
-    public function getCompiledPrivacySettings($defaultPrivacySettings = array())
+    public function getCompiledPrivacySettings($defaultPrivacySettings = [])
     {
         // example data
         // public => '0' (1 chars)
@@ -55,8 +55,7 @@ class UserProfile extends User
         $currentPrivacySettings = $this->getPrivacySettings();
 
         foreach ($defaultPrivacySettings as $defaultPrivacySetting => $defaultPrivacySettingValue) {
-
-            if ($defaultPrivacySetting <> '_default' AND $defaultPrivacySettingValue == 1) {
+            if ($defaultPrivacySetting <> '_default' and $defaultPrivacySettingValue == 1) {
                 foreach ($defaultSettingsTemplate as $defaultSettingTemplateKey => $defaultSettingTemplateValue) {
 
                     // set the default value of the TS setting
@@ -73,13 +72,12 @@ class UserProfile extends User
         return $compiledPrivacySettings;
     }
 
-
     /**
      * @param array $newPrivacySettings
      * @param array $defaultPrivacySettings
-     * @return boolean
+     * @return bool
      */
-    public function compilePrivacySettings($newPrivacySettings = array(), $defaultPrivacySettings = array())
+    public function compilePrivacySettings($newPrivacySettings = [], $defaultPrivacySettings = [])
     {
         // example data
         // public => '0' (1 chars)
@@ -88,8 +86,7 @@ class UserProfile extends User
         $defaultSettingsTemplate = $defaultPrivacySettings['_default'];
 
         foreach ($defaultPrivacySettings as $defaultPrivacySetting => $defaultPrivacySettingValue) {
-
-            if ($defaultPrivacySetting <> '_default' AND $defaultPrivacySettingValue == 1) {
+            if ($defaultPrivacySetting <> '_default' and $defaultPrivacySettingValue == 1) {
                 foreach ($defaultSettingsTemplate as $defaultSettingTemplateKey => $defaultSettingTemplateValue) {
 
                     // set the default value of the TS setting
@@ -172,10 +169,10 @@ class UserProfile extends User
                     foreach ($useroroups as $userqroup) {
                         $userGroupArray[] =  $userqroup->uid;
                     }
-                    $feUserGroups  = explode(',',$GLOBALS['TSFE']->fe_user->user['usergroup']);
+                    $feUserGroups  = explode(',', $GLOBALS['TSFE']->fe_user->user['usergroup']);
 
                     foreach ($feUserGroups as $feUserGroup) {
-                        if (in_array($feUserGroup,$userGroupArray)) {
+                        if (in_array($feUserGroup, $userGroupArray)) {
                             return true;
                         }
                     }
@@ -185,7 +182,6 @@ class UserProfile extends User
                 if ($authenticated) {
                     return true;
                 }
-
             } else {
                 // we are in public context
                 if ($public) {
@@ -195,11 +191,11 @@ class UserProfile extends User
                 }
             }
 
-            #if ($user == true) {
+            //if ($user == true) {
 
-           # } else {
+           // } else {
 
-            #}
+            //}
         }
         return false;
     }

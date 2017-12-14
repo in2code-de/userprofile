@@ -30,9 +30,7 @@ class UserProfileController extends ActionController
     public function injectUserProfileRepository(UserProfileRepository $userProfileRepository)
     {
         $this->userProfileRepository = $userProfileRepository;
-
     }
-
 
     /**
      * @param PersistenceManager $persistenceManager
@@ -40,9 +38,7 @@ class UserProfileController extends ActionController
     public function injectPersistenceManager(PersistenceManager $persistenceManager)
     {
         $this->persistenceManager = $persistenceManager;
-
     }
-
 
     /**
      * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
@@ -76,7 +72,6 @@ class UserProfileController extends ActionController
      * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
      *
      * @return void
-     *
      */
     public function changeProfileVisibilityAction(UserProfile $userProfile)
     {
@@ -95,7 +90,6 @@ class UserProfileController extends ActionController
      * @param \In2code\Userprofile\Domain\Model\Userprofile $userProfile
      *
      * @return void
-     *
      */
     public function privacyEditAction(UserProfile $userProfile)
     {
@@ -107,12 +101,11 @@ class UserProfileController extends ActionController
      * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
      *
      * @return void
-     *
      */
     public function privacyUpdateAction(UserProfile $userProfile)
     {
         // process privacy settings
-        $userProfile->compilePrivacySettings($this->request->getArgument('privacy'),$this->settings['privacy']);
+        $userProfile->compilePrivacySettings($this->request->getArgument('privacy'), $this->settings['privacy']);
 
         $this->userProfileRepository->update($userProfile);
 
@@ -122,11 +115,9 @@ class UserProfileController extends ActionController
     }
 
     /**
-     *
      * @param \In2code\Userprofile\Domain\Model\UserProfile $userProfile
      *
      * @return void
-     *
      */
     public function editAction(UserProfile $userProfile)
     {
