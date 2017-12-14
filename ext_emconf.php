@@ -1,9 +1,5 @@
 <?php
 
-/***************************************************************
- * Extension Manager/Repository config file for ext: "femanager"
- ***************************************************************/
-
 $EM_CONF[$_EXTKEY] = [
     'title' => 'User profile',
     'description' => 'Creates a profile page for TYPO3 frontend user based on

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * Table configuration fe_users
  */
 $feUsersColumns = [

@@ -5,51 +5,36 @@ namespace In2code\Userprofile\Domain\Model;
 
 use In2code\Femanager\Domain\Model\User;
 
-/**
- * Class UserProfile
- */
 class UserProfile extends User
 {
-
     /**
-     * $privacySettings
-     *
      * @var string
      */
     public $privacySettings;
 
     /**
-     * $realName
-     *
      * @var string
      */
     public $aboutMe;
 
     /**
-     * $publicProfile
-     *
      * @var bool
      */
     public $publicProfile = false;
 
-    /**
-     * @return array
-     */
-    public function getPrivacySettings()
+    public function getPrivacySettings(): array
     {
         return json_decode($this->privacySettings, true);
     }
 
-    /**
-     * @param array $defaultPrivacySettings
-     * @return array
-     */
-    public function getCompiledPrivacySettings($defaultPrivacySettings = [])
+    public function getCompiledPrivacySettings(array $defaultPrivacySettings = []): array
     {
-        // example data
-        // public => '0' (1 chars)
-        // authenticated => '0' (1 chars)
-        // groups => '0' (1 chars)
+        /*
+         * example data
+         * public => '0' (1 chars)
+         * authenticated => '0' (1 chars)
+         * groups => '0' (1 chars)
+         */
         $defaultSettingsTemplate = $defaultPrivacySettings['_default'];
 
         $currentPrivacySettings = $this->getPrivacySettings();
@@ -72,17 +57,14 @@ class UserProfile extends User
         return $compiledPrivacySettings;
     }
 
-    /**
-     * @param array $newPrivacySettings
-     * @param array $defaultPrivacySettings
-     * @return bool
-     */
-    public function compilePrivacySettings($newPrivacySettings = [], $defaultPrivacySettings = [])
+    public function compilePrivacySettings(array $newPrivacySettings = [], array $defaultPrivacySettings = []): bool
     {
-        // example data
-        // public => '0' (1 chars)
-        // authenticated => '0' (1 chars)
-        // groups => '0' (1 chars)
+        /*
+         * example data
+         * public => '0' (1 chars)
+         * authenticated => '0' (1 chars)
+         * groups => '0' (1 chars)
+         */
         $defaultSettingsTemplate = $defaultPrivacySettings['_default'];
 
         foreach ($defaultPrivacySettings as $defaultPrivacySetting => $defaultPrivacySettingValue) {
@@ -104,50 +86,32 @@ class UserProfile extends User
         return true;
     }
 
-    /**
-     * @param array $privacySettings
-     */
-    public function setPrivacySettings($privacySettings)
+    public function setPrivacySettings(array $privacySettings)
     {
         $this->privacySettings = json_encode($privacySettings);
     }
 
-    /**
-     * @return string
-     */
-    public function getAboutMe()
+    public function getAboutMe(): string
     {
         return $this->aboutMe;
     }
 
-    /**
-     * @param string $aboutMe
-     */
-    public function setAboutme($aboutMe)
+    public function setAboutme(string $aboutMe)
     {
         $this->aboutMe = $aboutMe;
     }
 
-    /**
-     * @return bool
-     */
     public function isPublicProfile(): bool
     {
         return $this->publicProfile;
     }
 
-    /**
-     * @param bool $publicProfile
-     */
     public function setPublicProfile(bool $publicProfile = false)
     {
         $this->publicProfile = $publicProfile;
     }
 
-    /**
-     * @param string $propertyName
-     */
-    public function showProperty($propertyName = '')
+    public function showProperty(string $propertyName = '')
     {
         // get privacy settings for this property
         $privacySettingsArray = $this->getPrivacySettings();
