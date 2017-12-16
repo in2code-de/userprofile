@@ -1,0 +1,67 @@
+<section class="container">
+	<f:form action="privacyUpdate" name="userProfile" object="{userProfile}">
+		<h1>My privacy settings</h1>
+		<p>You can control, which data are shown to whom:</p>
+		<ul>
+			<li><strong>everyone</strong>: Everyone in the web</li>
+			<li><strong>community</strong>: Everyone who is logged in with a typo3.org user account</li>
+			<li><strong>teams</strong>: Only the members of the teams, you are belonging to</li>
+		</ul>
+		<table class="table table-striped">
+			<thead>
+			<td>show your data to</td>
+			<td>everyone</td>
+			<td>community</td>
+			<td>teams</td>
+			</thead>
+			<f:for each="{privacySettings}" as="privacySetting" key="privacySettingValue">
+				<tr>
+					<td>{privacySettingValue}</td>
+					<td>
+						<f:if condition="{privacySetting.public}">
+							<f:then>
+								<input type="checkbox" value="{privacySettingValue}_public" checked="checked"
+								       id="tx_userprofile_pi1[{privacySettingValue}.public_checked]"
+								       name="tx_userprofile_pi1[privacy][{privacySettingValue}.public]">
+							</f:then>
+							<f:else>
+								<input type="checkbox" value="{privacySettingValue}_public"
+								       id="tx_userprofile_pi1[{privacySettingValue}.public]"
+								       name="tx_userprofile_pi1[privacy][{privacySettingValue}.public]">
+							</f:else>
+						</f:if>
+					</td>
+					<td>
+						<f:if condition="{privacySetting.authenticated}">
+							<f:then>
+								<input type="checkbox" checked="checked" value="{privacySettingValue}_authenticated"
+								       id="tx_userprofile_pi1[{privacySettingValue}.authenticated]_checked"
+								       name="tx_userprofile_pi1[privacy][{privacySettingValue}.authenticated]">
+							</f:then>
+							<f:else>
+								<input type="checkbox" value="{privacySettingValue}_authenticated"
+								       id="tx_userprofile_pi1[{privacySettingValue}.authenticated]"
+								       name="tx_userprofile_pi1[privacy][{privacySettingValue}.authenticated]">
+							</f:else>
+						</f:if>
+					</td>
+					<td>
+						<f:if condition="{privacySetting.groups}">
+							<f:then>
+								<input type="checkbox" checked="checked" value="{privacySettingValue}_groups"
+								       id="tx_userprofile_pi1[{privacySettingValue}.groups]_checked"
+								       name="tx_userprofile_pi1[privacy][{privacySettingValue}.groups]">
+							</f:then>
+							<f:else>
+								<input type="checkbox" value="{privacySettingValue}_groups"
+								       id="tx_userprofile_pi1[{privacySettingValue}.groups]"
+								       name="tx_userprofile_pi1[privacy][{privacySettingValue}.groups]">
+							</f:else>
+						</f:if>
+					</td>
+				</tr>
+			</f:for>
+		</table>
+		<f:form.submit value="Update" class="btn btn-success">Update</f:form.submit>
+	</f:form>
+</section>

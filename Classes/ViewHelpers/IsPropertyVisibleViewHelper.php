@@ -1,0 +1,22 @@
+<?php
+declare(strict_types=1);
+
+namespace In2code\Userprofile\ViewHelpers;
+
+use In2code\Userprofile\Domain\Model\UserProfile;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+class IsPropertyVisibleViewHelper extends AbstractViewHelper
+{
+    /**
+     * Check if a property of the userprofile is visible in the current context
+     */
+    public function render(string $propertyName, UserProfile $userProfile): bool
+    {
+        // return always all fields for the current user
+        if ($GLOBALS['TSFE']->fe_user->user['uid']==$userProfile->getUid()) {
+            return true;
+        }
+        return $userProfile->showProperty($propertyName);
+    }
+}
