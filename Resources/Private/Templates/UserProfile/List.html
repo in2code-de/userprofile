@@ -1,0 +1,14 @@
+<section class="container">
+	<h1>Our community</h1>
+	<f:debug>{frontendUsers}</f:debug>
+	<table>
+		<f:for each="{frontendUsers}" as="frontendUser">
+			<f:if condition="{frontendUser.publicProfile}">
+			<tr>
+				<td><f:link.action controller="UserProfile" action="show" arguments="{user:frontendUser}">{frontendUser.username}</f:link.action></td>
+			</tr>
+			</f:if>
+		</f:for>
+	</table>
+</section>
+

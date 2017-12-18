@@ -2,26 +2,36 @@
 declare(strict_types=1);
 namespace In2code\Userprofile\Domain\Repository;
 
-use In2code\Userprofile\Domain\Model\UserProfile;
+use In2code\Userprofile\Domain\Model\FrontendUser;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class UserProfileRepository extends Repository
+class FrontendUserRepository extends Repository
 {
+    /**
+     * @return void
+     */
+    public function initializeObject()
+    {
+        $querySettings = $this->createQuery()->getQuerySettings();
+        $querySettings->setRespectStoragePage(false);
+        $this->setDefaultQuerySettings($querySettings);
+    }
+
     /**
      * Overload Find by UID to also get hidden records
      *
      * @param int $uid fe_users UID
-     * @return UserProfile
+     * @return FrontendUser
      */
-    public function findByUid($uid): UserProfile
+    public function findByUid($uid): FrontendUser
     {
         $query = $this->createQuery();
         $and = [$query->equals('uid', $uid)];
 
-        /** @var UserProfile $user */
+        /** @var FrontendUser $user */
         $user = $query->matching($query->logicalAnd($and))->execute()->getFirst();
         return $user;
     }
