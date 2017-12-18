@@ -24,16 +24,16 @@
 <table>
 	<thead>
 		<td>show your data to </td>
-	<td>everyone</td>
-	<td>community</td>
-	<td>teams</td>
+		<td>Everyone</td>
+		<td>Community</td>
+		<td>Teams</td>
 	</thead>
 	<f:for each="{privacySettings}" as="privacySetting" key="privacySettingValue">
 		<tr>
 			<td>{privacySettingValue}</td>
-			<td>{privacySetting.public}</td>
-			<td>{privacySetting.authenticated}</td>
-			<td>{privacySetting.groups}</td>
+			<td>{f:if(condition:privacySetting.public, then: 'Yes', else: 'No')}</td>
+			<td>{f:if(condition:privacySetting.authenticated, then: 'Yes', else: 'No')}</td>
+			<td>{f:if(condition:privacySetting.groups, then: 'Yes', else: 'No')}</td>
 		</tr>
 	</f:for>
 </table>
