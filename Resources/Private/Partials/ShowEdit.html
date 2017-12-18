@@ -1,15 +1,20 @@
 <hr/>
 <f:link.action action="edit" arguments="{user:user}" class="btn btn-primary" >Edit your profile</f:link.action>
-<f:if condition="{user.publicProfile}">
-	<f:then>
-		<f:link.action class="btn alert-danger" action="changeProfileVisibility" arguments="{user:user}">Hide profile</f:link.action>
-		</br><span>Your profile page is currently active. Your Url is: </br>
-			<f:uri.page addQueryString="true" noCacheHash="true" absolute="true">link</f:uri.page></span>
-	</f:then>
-	<f:else>
-		<f:link.action class="btn alert-success" action="changeProfileVisibility" arguments="{user:user}">Make profile public</f:link.action>
-		<span>Your profile page is hidden</span>
-	</f:else>
+<f:if condition="{settings.features.enablePublicProfile}">
+	<f:if condition="{user.publicProfile}">
+		<f:then>
+			<f:link.action class="btn alert-danger" action="changeProfileVisibility" arguments="{user:user}">Hide profile</f:link.action>
+			</br>
+			<span>
+				Your profile page is currently active. Your Url is:</br>
+				<f:uri.page addQueryString="true" absolute="true" />
+			</span>
+		</f:then>
+		<f:else>
+			<f:link.action class="btn alert-success" action="changeProfileVisibility" arguments="{user:user}">Make profile public</f:link.action>
+			<span>Your profile page is hidden</span>
+		</f:else>
+	</f:if>
 </f:if>
 </br>
 
@@ -18,7 +23,7 @@
 <h3>Your privacy settings</h3>
 <table>
 	<thead>
-	<td>show your data to </td>
+		<td>show your data to </td>
 	<td>everyone</td>
 	<td>community</td>
 	<td>teams</td>
