@@ -118,12 +118,20 @@ class UserProfileController extends ActionController
         ]);
     }
 
+    /**
+     * @param FrontendUser $user
+     * @param array $privacy
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     */
     public function privacyUpdateAction(FrontendUser $user, array $privacy = [])
     {
         // process privacy settings
         $this->frontendUserService->compilePrivacySettings(
             $user,
-            $this->request->getArgument('privacy'),
+            $privacy,
             $this->settings['privacy']
         );
 

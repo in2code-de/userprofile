@@ -20,23 +20,23 @@
 					<td>
 						<f:form.checkbox
 							   checked="{privacySetting.public}"
-							   value="{privacySettingValue}_public"
-							   id="tx_userprofile_pi1[{privacySettingValue}.public_checked]"
-							   name="privacy.{privacySettingValue}.public" />
+							   value="1"
+							   id="userprofile_{privacySettingValue}_public"
+							   name="privacy[{privacySettingValue}][public]" />
 					</td>
 					<td>
 						<f:form.checkbox
 							   checked="{privacySetting.authenticated}"
-							   value="{privacySettingValue}_authenticated"
-							   id="tx_userprofile_pi1[{privacySettingValue}.authenticated]_checked"
-							   name="privacy.{privacySettingValue}.authenticated" />
+							   value="1"
+							   id="userprofile_{privacySettingValue}_authenticated"
+							   name="privacy[{privacySettingValue}][authenticated]" />
 					</td>
 					<td>
 						<f:form.checkbox
 							   checked="{privacySetting.groups}"
-							   value="{privacySettingValue}_groups"
-							   id="tx_userprofile_pi1[{privacySettingValue}.groups]_checked"
-							   name="privacy.{privacySettingValue}.groups" />
+							   value="1"
+							   id="userprofile_{privacySettingValue}_groups"
+							   name="privacy[{privacySettingValue}][groups]" />
 					</td>
 				</tr>
 			</f:for>

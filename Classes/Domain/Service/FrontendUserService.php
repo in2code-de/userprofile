@@ -168,7 +168,7 @@ class FrontendUserService implements SingletonInterface
                     $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = 0;
 
                     // check if there is an existing value
-                    if ($newPrivacySettings[$defaultPrivacySetting . '.' . $defaultSettingTemplateKey]) {
+                    if ($newPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey]) {
                         $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = 1;
                     }
                 }
