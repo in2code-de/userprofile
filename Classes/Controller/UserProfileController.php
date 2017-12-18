@@ -71,9 +71,6 @@ class UserProfileController extends ActionController
                     $user,
                     $this->settings['privacy']
                 ),
-//                'privacySettings' => $user->getCompiledPrivacySettings(
-//                    $this->settings['privacy']
-//                )
             ]);
         } else if (!$user->isPublicProfile()) {
             $this->addFlashMessage(

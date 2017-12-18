@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-
 namespace In2code\Userprofile\ViewHelpers;
 
 use In2code\Userprofile\Domain\FrontendUserService;
