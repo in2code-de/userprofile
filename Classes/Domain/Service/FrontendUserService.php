@@ -101,4 +101,82 @@ class FrontendUserService implements SingletonInterface
         }
         return ($user->getUid() === $currentUser->getUid());
     }
+
+    /**
+     * example data
+     *  public => '0' (1 chars)
+     *  authenticated => '0' (1 chars)
+     *  groups => '0' (1 chars)
+     *
+     * @param FrontendUser $user
+     * @param array $privacySettings
+     * @return array
+     */
+    public function getCompiledPrivacySettings(
+        FrontendUser $user,
+        array $privacySettings = []
+    ): array {
+        $defaultPrivacySettings = $privacySettings['_default'] ?: [];
+        $currentPrivacySettings = $user->getPrivacySettings();
+
+        $compiledPrivacySettings = [];
+        foreach ($privacySettings as $privacySettingName => $defaultPrivacySettingValue) {
+            if ($privacySettingName !== '_default'
+                && ($defaultPrivacySettingValue == 1
+                    || is_array($defaultPrivacySettingValue)
+                )
+            ) {
+                foreach ($defaultPrivacySettings as $defaultSettingTemplateKey => $defaultSettingTemplateValue) {
+                    // set the default value of the TS setting
+                    $compiledPrivacySettings[$privacySettingName][$defaultSettingTemplateKey] = (bool) $defaultSettingTemplateValue;
+
+                    // check if there is an existing value
+                    if ($currentPrivacySettings[$privacySettingName][$defaultSettingTemplateKey]) {
+                        $compiledPrivacySettings[$privacySettingName][$defaultSettingTemplateKey] = (bool) $currentPrivacySettings[$privacySettingName][$defaultSettingTemplateKey];
+                    }
+                }
+            }
+        }
+
+        return $compiledPrivacySettings;
+    }
+
+    /**
+     * example data
+     *  public => '0' (1 chars)
+     *  authenticated => '0' (1 chars)
+     *  groups => '0' (1 chars)
+     *
+     * @param FrontendUser $user
+     * @param array $newPrivacySettings
+     * @param array $defaultPrivacySettings
+     * @return bool
+     */
+    public function compilePrivacySettings(
+        FrontendUser $user,
+        array $newPrivacySettings = [],
+        array $defaultPrivacySettings = []
+    ): bool {
+        $defaultSettingsTemplate = $defaultPrivacySettings['_default'];
+        $compiledPrivacySettings = [];
+
+        foreach ($defaultPrivacySettings as $defaultPrivacySetting => $defaultPrivacySettingValue) {
+            if ($defaultPrivacySetting <> '_default' and $defaultPrivacySettingValue == 1) {
+                foreach ($defaultSettingsTemplate as $defaultSettingTemplateKey => $defaultSettingTemplateValue) {
+
+                    // set the default value of the TS setting
+                    $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = 0;
+
+                    // check if there is an existing value
+                    if ($newPrivacySettings[$defaultPrivacySetting . '.' . $defaultSettingTemplateKey]) {
+                        $compiledPrivacySettings[$defaultPrivacySetting][$defaultSettingTemplateKey] = 1;
+                    }
+                }
+            }
+        }
+
+        $user->setPrivacySettings($compiledPrivacySettings);
+
+        return true;
+    }
 }
