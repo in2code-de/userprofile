@@ -8,7 +8,7 @@ defined('TYPO3_MODE') or die('Access denied.');
         'UserProfile' => 'show,edit,update,privacyUpdate,privacyEdit,changeProfileVisibility,list',
     ],
     [
-        'UserProfile' => 'edit,update,privacyUpdate,privacyEdit,changeProfileVisibility',
+        'UserProfile' => 'show,edit,update,privacyUpdate,privacyEdit,changeProfileVisibility',
     ]
 );
 
