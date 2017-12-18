@@ -1,9 +1,10 @@
 <section class="container">
 	<h1>Edit my profile {user.name}</h1>
 	<ul>
-		<li>Name:   {user.name}</li>
-		<li>Email:  {user.email}</li>
-		<li>About me:  {user.aboutMe}</li>
+		<li>Name: {user.firstName} {user.lastName}</li>
+		<li>Email: {user.email}</li>
+		<li>About me: {user.aboutMe}</li>
+
 		<f:if condition="{showEditButton}" >
 			<f:link.action action="edit" arguments="{user:user}" class="btn btn-primary" >Edit your profile</f:link.action>
 
@@ -12,7 +13,7 @@
 				<label for="publicProfile">show my profile page</label></br>
 				<table>
 					<thead>
-					<td>show your data to </td>
+					<td>show your data to</td>
 					<td>everyone</td>
 					<td>community</td>
 					<td>teams</td>
