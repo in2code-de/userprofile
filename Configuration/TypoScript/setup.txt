@@ -1,8 +1,14 @@
 plugin.tx_userprofile {
    view {
-      templateRootPath = {$plugin.tx_userprofile.view.templateRootPath}
-      partialRootPath = {$plugin.tx_userprofile.view.partialRootPath}
-      layoutRootPath = {$plugin.tx_userprofile.view.layoutRootPath}
+      templateRootPaths {
+         10 = {$plugin.tx_userprofile.view.templateRootPath}
+      }
+      partialRootPaths {
+         10 = {$plugin.tx_userprofile.view.partialRootPath}
+      }
+      layoutRootPaths {
+         10  = {$plugin.tx_userprofile.view.layoutRootPath}
+      }
    }
 
    persistence {
