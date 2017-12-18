@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace In2code\Userprofile\Controller;
 
+use In2code\Userprofile\Domain\FrontendUserService;
 use In2code\Userprofile\Domain\Model\FrontendUser;
 use In2code\Userprofile\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -16,18 +17,28 @@ class UserProfileController extends ActionController
     public $userProfileRepository;
 
     /**
-     * @var persistenceManager
+     * @var FrontendUserService
      */
-    public $persistenceManager;
+    protected $frontendUserService;
 
     public function injectUserProfileRepository(FrontendUserRepository $userProfileRepository)
     {
         $this->userProfileRepository = $userProfileRepository;
     }
 
-    public function injectPersistenceManager(PersistenceManager $persistenceManager)
+    /**
+     * @param FrontendUserService $frontendUserService
+     * @return void
+     */
+    public function injectFrontendUserService(FrontendUserService $frontendUserService)
     {
-        $this->persistenceManager = $persistenceManager;
+        $this->frontendUserService = $frontendUserService;
+    }
+
+    public function listAction()
+    {
+        $allUsers = $this->userProfileRepository->findAll();
+        $this->view->assign('frontendUsers', $allUsers);
     }
 
     /**
