@@ -1,17 +1,17 @@
 {namespace userprofile=In2code\Userprofile\ViewHelpers}
-#<section class="container">
-	<h1>{userProfile.name}</h1>
+<section class="container">
+	<h1>{user.name}</h1>
 	<ul>
-		<f:if condition="{userprofile:isPropertyVisible(propertyName:'name', userProfile:userProfile)}">
-			<li>Name: {userProfile.name}</li>
+		<f:if condition="{userprofile:isPropertyVisible(propertyName:'name', user:user)}">
+			<li>Name: {user.name}</li>
 		</f:if>
-		<f:if condition="{userprofile:isPropertyVisible(propertyName:'email', userProfile:userProfile)}">
-		<li>Email:  {userProfile.email}</li>
+		<f:if condition="{userprofile:isPropertyVisible(propertyName:'email', user:user)}">
+		<li>Email:  {user.email}</li>
 		</f:if>
-		<f:if condition="{userprofile:isPropertyVisible(propertyName:'about_me', userProfile:userProfile)}">
-		<li>About me:  {userProfile.aboutMe}</li>
+		<f:if condition="{userprofile:isPropertyVisible(propertyName:'about_me', user:user)}">
+		<li>About me:  {user.aboutMe}</li>
 		</f:if>
-		<f:if condition="{showEditButton}">
+		<f:if condition="{isOwnProfile}">
 			<f:render partial="ShowEdit" arguments="{_all}" />
 		</f:if>
 	</ul>

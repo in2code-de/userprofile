@@ -1,22 +1,38 @@
 <?php
 declare(strict_types=1);
-
 namespace In2code\Userprofile\ViewHelpers;
 
-use In2code\Userprofile\Domain\Model\UserProfile;
+use In2code\Userprofile\Domain\FrontendUserService;
+use In2code\Userprofile\Domain\Model\FrontendUser;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class IsPropertyVisibleViewHelper extends AbstractViewHelper
 {
     /**
-     * Check if a property of the userprofile is visible in the current context
+     * @var FrontendUserService
      */
-    public function render(string $propertyName, UserProfile $userProfile): bool
+    protected $frontendUserService;
+
+    /**
+     * @param FrontendUserService $frontendUserService
+     * @return void
+     */
+    public function injectFrontendUserService(FrontendUserService $frontendUserService)
     {
-        // return always all fields for the current user
-        if ($GLOBALS['TSFE']->fe_user->user['uid']==$userProfile->getUid()) {
-            return true;
-        }
-        return $userProfile->showProperty($propertyName);
+        $this->frontendUserService = $frontendUserService;
+    }
+
+    /**
+     * Check if a property of the userprofile is visible in the current context
+     * @param string $propertyName
+     * @param FrontendUser $user
+     * @return bool
+     */
+    public function render(string $propertyName, FrontendUser $user): bool
+    {
+        return $this->frontendUserService->showProperty(
+            $user,
+            $propertyName
+        );
     }
 }

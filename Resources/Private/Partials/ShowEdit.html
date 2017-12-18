@@ -1,15 +1,20 @@
 <hr/>
-<f:link.action action="edit" arguments="{userProfile:userProfile}" class="btn btn-primary" >Edit your profile</f:link.action>
-<f:if condition="{userProfile.publicProfile}">
-	<f:then>
-		<f:link.action class="btn alert-danger" action="changeProfileVisibility" arguments="{userProfile:userProfile}">Hide profile</f:link.action>
-		</br><span>Your profile page is currently active. Your Url is: </br>
-			<f:uri.page addQueryString="true" noCacheHash="true" absolute="true">link</f:uri.page></span>
-	</f:then>
-	<f:else>
-		<f:link.action class="btn alert-success" action="changeProfileVisibility" arguments="{userProfile:userProfile}">Make profile public</f:link.action>
-		<span>Your profile page is hidden</span>
-	</f:else>
+<f:link.action action="edit" arguments="{user:user}" class="btn btn-primary" >Edit your profile</f:link.action>
+<f:if condition="{settings.features.enablePublicProfile}">
+	<f:if condition="{user.publicProfile}">
+		<f:then>
+			<f:link.action class="btn alert-danger" action="changeProfileVisibility" arguments="{user:user}">Hide profile</f:link.action>
+			</br>
+			<span>
+				Your profile page is currently active. Your Url is:</br>
+				<f:uri.page addQueryString="true" absolute="true" />
+			</span>
+		</f:then>
+		<f:else>
+			<f:link.action class="btn alert-success" action="changeProfileVisibility" arguments="{user:user}">Make profile public</f:link.action>
+			<span>Your profile page is hidden</span>
+		</f:else>
+	</f:if>
 </f:if>
 </br>
 
@@ -18,18 +23,18 @@
 <h3>Your privacy settings</h3>
 <table>
 	<thead>
-	<td>show your data to </td>
-	<td>everyone</td>
-	<td>community</td>
-	<td>teams</td>
+		<td>show your data to </td>
+		<td>Everyone</td>
+		<td>Community</td>
+		<td>Teams</td>
 	</thead>
 	<f:for each="{privacySettings}" as="privacySetting" key="privacySettingValue">
 		<tr>
 			<td>{privacySettingValue}</td>
-			<td>{privacySetting.public}</td>
-			<td>{privacySetting.authenticated}</td>
-			<td>{privacySetting.groups}</td>
+			<td>{f:if(condition:privacySetting.public, then: 'Yes', else: 'No')}</td>
+			<td>{f:if(condition:privacySetting.authenticated, then: 'Yes', else: 'No')}</td>
+			<td>{f:if(condition:privacySetting.groups, then: 'Yes', else: 'No')}</td>
 		</tr>
 	</f:for>
 </table>
-<f:link.action class="btn btn-secondary" action="privacyEdit" arguments="{userProfile:userProfile}">Edit privacy settings</f:link.action>
+<f:link.action class="btn btn-secondary" action="privacyEdit" arguments="{user:user}">Edit privacy settings</f:link.action>

@@ -1,19 +1,14 @@
 <?php
-
-if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
-}
+defined('TYPO3_MODE') or die('Access denied.');
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'In2code.' . $_EXTKEY,
     'Pi1',
     [
-        'UserProfile' => 'show, edit, update, privacyUpdate, privacyEdit, changeProfileVisibility',
-        'UserProfileList' => 'list',
+        'UserProfile' => 'show,edit,update,privacyUpdate,privacyEdit,changeProfileVisibility,list',
     ],
     [
-        'UserProfile' => 'edit, update, privacyUpdate, privacyEdit, changeProfileVisibility',
-        'UserProfileList' => '',
+        'UserProfile' => 'show,edit,update,privacyUpdate,privacyEdit,changeProfileVisibility',
     ]
 );
 
@@ -21,11 +16,9 @@ if (!defined('TYPO3_MODE')) {
     'In2code.' . $_EXTKEY,
     'Pi2',
     [
-        'UserProfileList' => 'list',
-        'UserProfile' => 'show, edit, update',
+        'UserProfile' => 'list,show,edit,update',
     ],
     [
-        'UserProfileList' => '',
-        'UserProfile' => 'show, edit, update',
+        'UserProfile' => 'show,edit,update',
     ]
 );
