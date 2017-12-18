@@ -86,6 +86,11 @@ class UserProfileController extends ActionController
 
     public function changeProfileVisibilityAction(FrontendUser $user)
     {
+        // check if user has access
+        if (!$this->frontendUserService->isOwnProfile($user)) {
+            $this->accessDeniedErrorAction();
+        }
+
         if ($user->isPublicProfile()) {
             $user->setPublicProfile(false);
             $this->addFlashMessage(
@@ -106,6 +111,11 @@ class UserProfileController extends ActionController
 
     public function privacyEditAction(FrontendUser $user)
     {
+        // check if user has access
+        if (!$this->frontendUserService->isOwnProfile($user)) {
+            $this->accessDeniedErrorAction($user);
+        }
+
         $this->view->assignMultiple([
             'user' => $user,
             'privacySettings' => $this->frontendUserService->getCompiledPrivacySettings(
@@ -125,6 +135,11 @@ class UserProfileController extends ActionController
      */
     public function privacyUpdateAction(FrontendUser $user, array $privacy = [])
     {
+        // check if user has access
+        if (!$this->frontendUserService->isOwnProfile($user)) {
+            $this->accessDeniedErrorAction($user);
+        }
+
         // process privacy settings
         $this->frontendUserService->compilePrivacySettings(
             $user,
@@ -145,11 +160,21 @@ class UserProfileController extends ActionController
 
     public function editAction(FrontendUser $user)
     {
+        // check if user has access
+        if (!$this->frontendUserService->isOwnProfile($user)) {
+            $this->accessDeniedErrorAction($user);
+        }
+
         $this->view->assign('user', $user);
     }
 
     public function updateAction(FrontendUser $user)
     {
+        // check if user has access
+        if (!$this->frontendUserService->isOwnProfile($user)) {
+            $this->accessDeniedErrorAction($user);
+        }
+
         // store changes in database
         $this->frontendUserRepository->update($user);
 
@@ -159,6 +184,23 @@ class UserProfileController extends ActionController
             $this->cacheService->clearPageCache($currentPid);
         }
 
+        $this->redirect(
+            'show',
+            null,
+            null,
+            [
+                'user' => $user
+            ]
+        );
+    }
+
+    protected function accessDeniedErrorAction(FrontendUser $user)
+    {
+        $this->addFlashMessage(
+            'Access denied!',
+            'You are not allowed to perform this action',
+            AbstractMessage::ERROR
+        );
         $this->redirect(
             'show',
             null,
