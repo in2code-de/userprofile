@@ -3,16 +3,15 @@ declare(strict_types=1);
 
 namespace In2code\Userprofile\Controller;
 
-use In2code\Userprofile\Domain\Model\UserProfile;
-use In2code\Userprofile\Domain\Repository\UserProfileRepository;
+use In2code\Userprofile\Domain\Model\FrontendUser;
+use In2code\Userprofile\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 class UserProfileController extends ActionController
 {
     /**
-     * @var UserProfileRepository
+     * @var FrontendUserRepository
      */
     public $userProfileRepository;
 
@@ -21,7 +20,7 @@ class UserProfileController extends ActionController
      */
     public $persistenceManager;
 
-    public function injectUserProfileRepository(UserProfileRepository $userProfileRepository)
+    public function injectUserProfileRepository(FrontendUserRepository $userProfileRepository)
     {
         $this->userProfileRepository = $userProfileRepository;
     }
@@ -33,8 +32,9 @@ class UserProfileController extends ActionController
 
     /**
      * @ignoevalidation $userProfile
+     * @param FrontendUser|null $userProfile
      */
-    public function showAction(UserProfile $userProfile = null)
+    public function showAction(FrontendUser $userProfile = null)
     {
         if (!$userProfile) {
             if ($GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
@@ -48,16 +48,26 @@ class UserProfileController extends ActionController
                 $this->addFlashMessage('You need to be logged in!', 'Profile can not be shown', AbstractMessage::ERROR);
             }
         }
+
+
+        // is users own profile
+        if ($this->frontendUserService->isOwnProfile($userProfile)) {
+            $this->view->assign([
+                'isOwnProfile' => true,
+                'privacySettings' => $userProfile->getCompiledPrivacySettings(
+                    $this->settings['privacy']
+                )
+            ]);
+        }
+
         // display a profile of a user
         $this->view->assign('userProfile', $userProfile);
-
-        $this->view->assign('privacySettings', $userProfile->getCompiledPrivacySettings($this->settings['privacy']));
 
         // render an edit button, if the current user is logged in
         // TODO: Implement this functionality or remove this comment!
     }
 
-    public function changeProfileVisibilityAction(UserProfile $userProfile)
+    public function changeProfileVisibilityAction(FrontendUser $userProfile)
     {
         if ($userProfile->isPublicProfile()) {
             $userProfile->setPublicProfile(false);
@@ -70,13 +80,13 @@ class UserProfileController extends ActionController
         $this->userProfileRepository->update($userProfile);
     }
 
-    public function privacyEditAction(UserProfile $userProfile)
+    public function privacyEditAction(FrontendUser $userProfile)
     {
         $this->view->assign('userProfile', $userProfile);
         $this->view->assign('privacySettings', $userProfile->getCompiledPrivacySettings($this->settings['privacy']));
     }
 
-    public function privacyUpdateAction(UserProfile $userProfile)
+    public function privacyUpdateAction(FrontendUser $userProfile)
     {
         // process privacy settings
         $userProfile->compilePrivacySettings($this->request->getArgument('privacy'), $this->settings['privacy']);
@@ -88,12 +98,12 @@ class UserProfileController extends ActionController
         $this->redirect('show');
     }
 
-    public function editAction(UserProfile $userProfile)
+    public function editAction(FrontendUser $userProfile)
     {
         $this->view->assign('userProfile', $userProfile);
     }
 
-    public function updateAction(UserProfile $userProfile)
+    public function updateAction(FrontendUser $userProfile)
     {
         // store changes in database
         $this->userProfileRepository->update($userProfile);

@@ -3,19 +3,17 @@ declare(strict_types=1);
 
 namespace In2code\Userprofile\Domain\Model;
 
-use In2code\Femanager\Domain\Model\User;
-
-class UserProfile extends User
+class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
 {
     /**
      * @var string
      */
-    public $privacySettings;
+    public $privacySettings = '';
 
     /**
      * @var string
      */
-    public $aboutMe;
+    public $aboutMe = '';
 
     /**
      * @var bool
@@ -24,6 +22,9 @@ class UserProfile extends User
 
     public function getPrivacySettings(): array
     {
+        if (!$this->privacySettings) {
+            $this->privacySettings = json_encode([]);
+        }
         return json_decode($this->privacySettings, true);
     }
 
@@ -111,6 +112,11 @@ class UserProfile extends User
         $this->publicProfile = $publicProfile;
     }
 
+    /**
+     * @param string $propertyName
+     * @return bool
+     * @deprecated
+     */
     public function showProperty(string $propertyName = '')
     {
         // get privacy settings for this property
