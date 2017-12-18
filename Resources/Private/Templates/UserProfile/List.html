@@ -5,7 +5,7 @@
 		<f:for each="{frontendUsers}" as="frontendUser">
 			<f:if condition="{frontendUser.publicProfile}">
 			<tr>
-				<td><f:link.action controller="UserProfile" action="show" arguments="{userProfile:frontendUser}">{frontendUser.username}</f:link.action></td>
+				<td><f:link.action controller="UserProfile" action="show" arguments="{user:frontendUser}">{frontendUser.username}</f:link.action></td>
 			</tr>
 			</f:if>
 		</f:for>

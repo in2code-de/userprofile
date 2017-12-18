@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
-
 namespace In2code\Userprofile\Controller;
 
 use In2code\Userprofile\Domain\FrontendUserService;
 use In2code\Userprofile\Domain\Model\FrontendUser;
 use In2code\Userprofile\Domain\Repository\FrontendUserRepository;
+use In2code\Userprofile\Service\SessionService;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -14,112 +14,153 @@ class UserProfileController extends ActionController
     /**
      * @var FrontendUserRepository
      */
-    public $userProfileRepository;
+    protected $frontendUserRepository;
 
     /**
      * @var FrontendUserService
      */
     protected $frontendUserService;
 
-    public function injectUserProfileRepository(FrontendUserRepository $userProfileRepository)
+    /**
+     * @var SessionService
+     */
+    protected $sessionService;
+
+    public function injectUserProfileRepository(FrontendUserRepository $frontendUserRepository)
     {
-        $this->userProfileRepository = $userProfileRepository;
+        $this->frontendUserRepository = $frontendUserRepository;
     }
 
-    /**
-     * @param FrontendUserService $frontendUserService
-     * @return void
-     */
     public function injectFrontendUserService(FrontendUserService $frontendUserService)
     {
         $this->frontendUserService = $frontendUserService;
     }
 
+    public function injectSessionService(SessionService $sessionService)
+    {
+        $this->sessionService = $sessionService;
+    }
+
     public function listAction()
     {
-        $allUsers = $this->userProfileRepository->findAll();
+        $allUsers = $this->frontendUserRepository->findAll();
         $this->view->assign('frontendUsers', $allUsers);
     }
 
     /**
-     * @ignoevalidation $userProfile
-     * @param FrontendUser|null $userProfile
+     * @param FrontendUser|null $user
      */
-    public function showAction(FrontendUser $userProfile = null)
+    public function showAction(FrontendUser $user = null)
     {
-        if (!$userProfile) {
-            if ($GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
-                $userProfile = $this->userProfileRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-                if (!$userProfile) {
-                    $this->addFlashMessage('Something went wrong. We were not able to find your profile found!',
-                        'Profile can not be shown', AbstractMessage::ERROR);
-                }
-                $this->view->assign('showEditButton', true);
-            } else {
-                $this->addFlashMessage('You need to be logged in!', 'Profile can not be shown', AbstractMessage::ERROR);
+        if ($user === null) {
+            $user = $this->sessionService->getFrontendUser();
+            if ($user === null) {
+                $this->addFlashMessage(
+                    'Something went wrong. We were not able to find your profile found!',
+                    'Profile can not be shown',
+                    AbstractMessage::ERROR
+                );
             }
         }
 
-
         // is users own profile
-        if ($this->frontendUserService->isOwnProfile($userProfile)) {
-            $this->view->assign([
+        if ($this->frontendUserService->isOwnProfile($user)) {
+            $this->view->assignMultiple([
                 'isOwnProfile' => true,
-                'privacySettings' => $userProfile->getCompiledPrivacySettings(
+                'privacySettings' => $this->frontendUserService->getCompiledPrivacySettings(
+                    $user,
                     $this->settings['privacy']
-                )
+                ),
+//                'privacySettings' => $user->getCompiledPrivacySettings(
+//                    $this->settings['privacy']
+//                )
             ]);
+        } else if (!$user->isPublicProfile()) {
+            $this->addFlashMessage(
+                'You need to be logged in!',
+                'Profile can not be shown',
+                AbstractMessage::ERROR
+            );
         }
 
         // display a profile of a user
-        $this->view->assign('userProfile', $userProfile);
-
-        // render an edit button, if the current user is logged in
-        // TODO: Implement this functionality or remove this comment!
+        $this->view->assign('user', $user);
     }
 
-    public function changeProfileVisibilityAction(FrontendUser $userProfile)
+    public function changeProfileVisibilityAction(FrontendUser $user)
     {
-        if ($userProfile->isPublicProfile()) {
-            $userProfile->setPublicProfile(false);
-            $this->addFlashMessage('Your profile is now hidden.', 'Profile visibility', AbstractMessage::INFO);
+        if ($user->isPublicProfile()) {
+            $user->setPublicProfile(false);
+            $this->addFlashMessage(
+                'Your profile is now hidden.',
+                'Profile visibility',
+                AbstractMessage::INFO
+            );
         } else {
-            $userProfile->setPublicProfile(true);
-            $this->addFlashMessage('Your profile is now visible to the public.', 'Profile visibility',
-                AbstractMessage::OK);
+            $user->setPublicProfile(true);
+            $this->addFlashMessage(
+                'Your profile is now visible to the public.',
+                'Profile visibility',
+                AbstractMessage::OK
+            );
         }
-        $this->userProfileRepository->update($userProfile);
+        $this->frontendUserRepository->update($user);
     }
 
-    public function privacyEditAction(FrontendUser $userProfile)
+    public function privacyEditAction(FrontendUser $user)
     {
-        $this->view->assign('userProfile', $userProfile);
-        $this->view->assign('privacySettings', $userProfile->getCompiledPrivacySettings($this->settings['privacy']));
+        $this->view->assignMultiple([
+            'user' => $user,
+            'privacySettings' => $this->frontendUserService->getCompiledPrivacySettings(
+                $user,
+                $this->settings['privacy']
+            )
+        ]);
     }
 
-    public function privacyUpdateAction(FrontendUser $userProfile)
+    public function privacyUpdateAction(FrontendUser $user, array $privacy = [])
     {
         // process privacy settings
-        $userProfile->compilePrivacySettings($this->request->getArgument('privacy'), $this->settings['privacy']);
+        $this->frontendUserService->compilePrivacySettings(
+            $user,
+            $this->request->getArgument('privacy'),
+            $this->settings['privacy']
+        );
 
-        $this->userProfileRepository->update($userProfile);
+        $this->frontendUserRepository->update($user);
 
-        $this->addFlashMessage('Your privacy settings were updated', 'Success', AbstractMessage::OK);
+        $this->addFlashMessage(
+            'Your privacy settings were updated',
+            'Success',
+            AbstractMessage::OK
+        );
 
         $this->redirect('show');
     }
 
-    public function editAction(FrontendUser $userProfile)
+    public function editAction(FrontendUser $user)
     {
-        $this->view->assign('userProfile', $userProfile);
+        $this->view->assign('user', $user);
     }
 
-    public function updateAction(FrontendUser $userProfile)
+    public function updateAction(FrontendUser $user)
     {
         // store changes in database
-        $this->userProfileRepository->update($userProfile);
+        $this->frontendUserRepository->update($user);
 
-        // clear cache entry for this entry
-        // TODO: Implement this functionality or remove this comment!
+        // clear cache entry for this page
+        $currentPid = $this->configurationManager->getContentObject()->data['pid'];
+        if ($currentPid > 0) {
+            $this->cacheService->clearPageCache($currentPid);
+        }
+
+        $this->redirect(
+            'show',
+            null,
+            null,
+            [
+                'user' => $user
+            ]
+        );
     }
 }

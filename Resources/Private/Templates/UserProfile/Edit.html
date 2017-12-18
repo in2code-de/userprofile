@@ -1,16 +1,16 @@
 
 <section class="container">
-	<h1>Edit my profile {userProfile.name}</h1>
+	<h1>Edit my profile {user.name}</h1>
 	<ul>
-		<li>Name:   {userProfile.name}</li>
-		<li>Email:  {userProfile.email}</li>
-		<li>About me:  {userProfile.aboutMe}</li>
+		<li>Name:   {user.name}</li>
+		<li>Email:  {user.email}</li>
+		<li>About me:  {user.aboutMe}</li>
 		<f:debug>{<userProfile></userProfile>}</f:debug>
 		<f:if condition="{showEditButton}" >
-			<f:link.action action="edit" arguments="{userProfile:userProfile}" class="btn btn-primary" >Edit your profile</f:link.action>
+			<f:link.action action="edit" arguments="{user:user}" class="btn btn-primary" >Edit your profile</f:link.action>
 
-			<f:form action="update" name="userProfile" object="{userProfile}">
-				<f:form.checkbox value="{userProfile.publicProfile}" property="publicProfile"></f:form.checkbox>
+			<f:form action="update" name="user" object="{user}">
+				<f:form.checkbox value="{user.publicProfile}" property="publicProfile" />
 				<label for="publicProfile">show my profile page</label></br>
 				<table>
 					<thead>
@@ -28,7 +28,7 @@
 						</tr>
 					</f:for>
 				</table>
-				<f:link.action class="btn btn-secondary" action="edit" arguments="{userProfile:userProfile}">Edit privacy settings</f:link.action>
+				<f:link.action class="btn btn-secondary" action="edit" arguments="{user:user}">Edit privacy settings</f:link.action>
 			</f:form>
 		</f:if>
 

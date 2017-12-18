@@ -1,13 +1,13 @@
 <hr/>
-<f:link.action action="edit" arguments="{userProfile:userProfile}" class="btn btn-primary" >Edit your profile</f:link.action>
-<f:if condition="{userProfile.publicProfile}">
+<f:link.action action="edit" arguments="{user:user}" class="btn btn-primary" >Edit your profile</f:link.action>
+<f:if condition="{user.publicProfile}">
 	<f:then>
-		<f:link.action class="btn alert-danger" action="changeProfileVisibility" arguments="{userProfile:userProfile}">Hide profile</f:link.action>
+		<f:link.action class="btn alert-danger" action="changeProfileVisibility" arguments="{user:user}">Hide profile</f:link.action>
 		</br><span>Your profile page is currently active. Your Url is: </br>
 			<f:uri.page addQueryString="true" noCacheHash="true" absolute="true">link</f:uri.page></span>
 	</f:then>
 	<f:else>
-		<f:link.action class="btn alert-success" action="changeProfileVisibility" arguments="{userProfile:userProfile}">Make profile public</f:link.action>
+		<f:link.action class="btn alert-success" action="changeProfileVisibility" arguments="{user:user}">Make profile public</f:link.action>
 		<span>Your profile page is hidden</span>
 	</f:else>
 </f:if>
@@ -32,4 +32,4 @@
 		</tr>
 	</f:for>
 </table>
-<f:link.action class="btn btn-secondary" action="privacyEdit" arguments="{userProfile:userProfile}">Edit privacy settings</f:link.action>
+<f:link.action class="btn btn-secondary" action="privacyEdit" arguments="{user:user}">Edit privacy settings</f:link.action>
