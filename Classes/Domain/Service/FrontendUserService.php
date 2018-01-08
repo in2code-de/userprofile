@@ -1,5 +1,5 @@
 <?php
-namespace In2code\Userprofile\Domain;
+namespace In2code\Userprofile\Domain\Service;
 
 use In2code\Userprofile\Domain\Model\FrontendUser;
 use In2code\Userprofile\Property\PrivacySettings;

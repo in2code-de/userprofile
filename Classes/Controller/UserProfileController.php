@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace In2code\Userprofile\Controller;
 
-use In2code\Userprofile\Domain\FrontendUserService;
+use In2code\Userprofile\Domain\Service\FrontendUserService;
 use In2code\Userprofile\Domain\Model\FrontendUser;
 use In2code\Userprofile\Domain\Repository\FrontendUserRepository;
 use In2code\Userprofile\Service\SessionService;
