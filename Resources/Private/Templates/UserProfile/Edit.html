@@ -1,35 +1,15 @@
 <section class="container">
 	<h1>Edit my profile {user.name}</h1>
-	<ul>
-		<li>Name: {user.firstName} {user.lastName}</li>
-		<li>Email: {user.email}</li>
-		<li>About me: {user.aboutMe}</li>
 
-		<f:if condition="{showEditButton}" >
-			<f:link.action action="edit" arguments="{user:user}" class="btn btn-primary" >Edit your profile</f:link.action>
-
-			<f:form action="update" name="user" object="{user}">
-				<f:form.checkbox value="{user.publicProfile}" property="publicProfile" />
-				<label for="publicProfile">show my profile page</label></br>
-				<table>
-					<thead>
-					<td>show your data to</td>
-					<td>everyone</td>
-					<td>community</td>
-					<td>teams</td>
-					</thead>
-					<f:for each="{privacySettings}" as="privacySetting" key="privacySettingValue">
-						<tr>
-							<td>{privacySettingValue}</td>
-							<td>{privacySetting.public}</td>
-							<td>{privacySetting.authenticated}</td>
-							<td>{privacySetting.groups}</td>
-						</tr>
-					</f:for>
-				</table>
-				<f:link.action class="btn btn-secondary" action="edit" arguments="{user:user}">Edit privacy settings</f:link.action>
-			</f:form>
-		</f:if>
-
-	</ul>
+	<f:form action="update" objectName="user" object="{user}">
+		<fieldset class="form-group">
+			<div class="form-group">
+				<label for="aboutMe">E-Mail</label>
+				<div class="input">
+					<f:form.textfield value="{user.aboutMe}" id="aboutMe" property="aboutMe"/>
+				</div>
+			</div>
+		</fieldset>
+		<f:form.submit value="Update" class="btn btn-success">Update</f:form.submit>
+	</f:form>
 </section>
