@@ -33,9 +33,9 @@ class SessionService implements \TYPO3\CMS\Core\SingletonInterface
 
     protected function initializeUser()
     {
-        $this->frontendUser = $this->frontendUserRepository->findByUid(
-            $this->feUserAuthentication->user['uid']
-        );
+        if ($this->isLoggedIn()) {
+            $this->frontendUser = $this->frontendUserRepository->findByUid((int)$this->feUserAuthentication->user['uid']);
+        }
     }
 
     public function isLoggedIn(): bool
