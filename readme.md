@@ -14,7 +14,7 @@ Quick guide:
 
 | Software    | Versions   |
 | ----------- | ---------- |
-| TYPO3       | 8.7        |
+| TYPO3       | 8.7 - 9.5  |
 | PHP         | 7.0 - 7.2  |
 
 ## Changelog
