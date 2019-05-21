@@ -179,7 +179,7 @@ class UserProfileController extends ActionController
         $this->frontendUserRepository->update($user);
 
         // clear cache entry for this page
-        $currentPid = $this->configurationManager->getContentObjectRenderer()->data['pid'];
+        $currentPid = $this->configurationManager->getContentObject()->data['pid'];
         if ($currentPid > 0) {
             $this->cacheService->clearPageCache($currentPid);
         }
