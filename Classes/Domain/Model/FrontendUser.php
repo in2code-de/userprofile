@@ -74,11 +74,11 @@ class FrontendUser extends \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
                 // groups context
                 if ($groups) {
                     // check if usergroups match
-                    $useroroups = $this->getUsergroup();
+                    $usergroups = $this->getUsergroup();
 
                     // @todo exclude groups from comparision, if they are added for all users
-                    foreach ($useroroups as $userqroup) {
-                        $userGroupArray[] =  $userqroup->uid;
+                    foreach ($usergroups as $usergroup) {
+                        $userGroupArray[] =  $usergroup->getUid();
                     }
                     $feUserGroups  = explode(',', $GLOBALS['TSFE']->fe_user->user['usergroup']);
 
