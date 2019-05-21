@@ -24,15 +24,25 @@ class IsPropertyVisibleViewHelper extends AbstractViewHelper
 
     /**
      * Check if a property of the userprofile is visible in the current context
-     * @param string $propertyName
-     * @param FrontendUser $user
      * @return bool
      */
-    public function render(string $propertyName, FrontendUser $user): bool
+    public function render(): bool
     {
         return $this->frontendUserService->showProperty(
-            $user,
-            $propertyName
+            $this->arguments['user'],
+            $this->arguments['propertyName']
         );
+    }
+
+    /**
+     * Initialize
+     *
+     * @return void
+     */
+    public function initializeArguments()
+    {
+        parent::initializeArguments();
+        $this->registerArgument('user', 'object', 'FrontendUser which should get displayed', true);
+        $this->registerArgument('propertyName', 'string', 'Property of the FrontendUser which should be displayed', true);
     }
 }
