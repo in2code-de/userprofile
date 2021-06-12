@@ -23,7 +23,8 @@
 		}
 	],
 	"require": {
-		"typo3/cms-core": "^10.4"
+		"typo3/cms-core": "^10.4",
+		"typo3/cms-felogin": "^10.4"
 	},
 	"require-dev": {
 		"typo3/cms-adminpanel": "^10.4",
@@ -58,16 +59,17 @@
 		"typo3/cms-belog": "^10.4",
 		"helmich/typo3-typoscript-lint": "^2.5",
 		"friendsofphp/php-cs-fixer": "^2.19",
-		"genesis/behat-fail-aid": "^3.7"
+		"genesis/behat-fail-aid": "^3.7",
+		"michielroos/typo3scan": "^1.7"
 	},
 	"autoload": {
 		"psr-4": {
-			"In2code\\Femanager\\": "Classes/"
+			"In2code\\Userprofile\\": "Classes/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"In2code\\Femanager\\Tests\\": "Tests",
+			"In2code\\Userprofile\\Tests\\": "Tests",
 			"TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
 			"TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
 		}
