@@ -1,0 +1,6 @@
+/.Build/bin/
+/.Build/vendor/
+/.Build/Web/
+.idea
+/var/
+composer.lock
